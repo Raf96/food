@@ -88,4 +88,38 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     setClock('.timer', deadline);
+
+    //Modal
+    const modalTriger = document.querySelectorAll('[data-modal]'),
+          modal = document.querySelector('.modal'),
+          modalCloseBtn = document.querySelector('[data-close]'); 
+
+    modalTriger.forEach(btn => {
+        btn.addEventListener('click', () => {
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; //убирает прокрутку сайта при открытом модальном окне
+         });
+    });
+
+    function closeModal() {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+
+    modalCloseBtn.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', (e) => {        // функционал для закрытия модального окна кликом по области вне модального окна
+        if (e.target === modal) {                   //Если пользователь кликнул(event.target) в область занятую modal
+            closeModal();
+        }
+
+    });
+
+    document.addEventListener('keydown', (e) => {     //функционал для закрытия модального окна клавишей Esc
+        if (e.code === 'Escape') {
+            closeModal();
+        }
+    });
+
+
 });
